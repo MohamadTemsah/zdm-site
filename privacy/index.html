@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zap Download Manager: privacy policy</title>
+<style>
+  :root { color-scheme: light dark; font: 16px/1.6 system-ui, "Segoe UI", Tahoma, sans-serif; }
+  body { margin: 0 auto; padding: 24px 16px 64px; max-width: 46rem; }
+  nav { display: flex; gap: 12px; margin-bottom: 24px; }
+  nav a { padding: 4px 12px; border: 1px solid currentColor; border-radius: 6px; text-decoration: none; color: inherit; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  h2 { font-size: 1.1rem; margin: 28px 0 6px; }
+  .date { opacity: .7; margin: 0 0 20px; }
+  section + section { margin-top: 56px; padding-top: 32px; border-top: 1px solid rgba(128, 128, 128, .4); }
+  li { margin: 4px 0; }
+  code { font-size: .92em; }
+</style>
+</head>
+<body>
+<nav aria-label="Language"><a href="#en" hreflang="en">English</a><a href="#de" hreflang="de">Deutsch</a><a href="#ar" hreflang="ar">العربية</a></nav>
+
+<section id="en" lang="en" dir="ltr">
+  <h1>Zap Download Manager: privacy policy</h1>
+  <p class="date">Browser extension "Zap Download Manager" (ZDM). Last updated: 2026-11-17.</p>
+
+  <h2>In short</h2>
+  <p>The extension sends information only to the ZDM program installed on your own computer. It sends nothing to any server of ours or of anyone else. We run no server that receives data from the extension, we have no accounts, no analytics, no advertising and no tracking, and we sell or share nothing.</p>
+
+  <h2>What the extension does</h2>
+  <p>The extension hands downloads and videos from your browser to the ZDM desktop app. It downloads nothing itself. ZDM refuses DRM-protected content.</p>
+
+  <h2>What is passed to the ZDM app on your computer</h2>
+  <p>Through the browser's native messaging, which connects only to the ZDM app on the same computer:</p>
+  <ul>
+    <li><b>When the browser starts a download that ZDM takes over:</b> the download address, the page it came from and its title, the file name, type and size the server announced, and the browser's user agent.</li>
+    <li><b>When you click the video button, or a download button in the extension's popup:</b> the address of the page and of the video or audio streams the page loaded (their addresses only), so ZDM can offer the qualities and download the file.</li>
+    <li><b>Cookies, only if you switch on "Pass my cookies to ZDM":</b> the cookies of the host of that one download, so a download that needs a login can work. This is off by default and needs your permission in the browser. The cookies stay in the app's memory, are never written to disk by ZDM and are never sent anywhere else.</li>
+  </ul>
+  <p>ZDM's own program contacts the download's server directly, as any download manager does. That traffic is from the app, not from the extension, and it goes only to the address you chose to download.</p>
+
+  <h2>What the extension keeps in your browser</h2>
+  <ul>
+    <li>Its settings and your choices (for example on which websites the video button is on) in the browser's extension storage.</li>
+    <li>While a page is open, the addresses of the video streams it loaded, in the browser's temporary session storage, until the tab is closed or the browser is restarted. They are used only when you click and are sent to the ZDM app only then.</li>
+  </ul>
+
+  <h2>Permissions, and why</h2>
+  <ul>
+    <li><code>downloads</code>: to see a download the browser starts, so ZDM can take it over.</li>
+    <li><code>nativeMessaging</code>: to talk to the ZDM app on this computer.</li>
+    <li><code>storage</code>: to keep the settings and choices above.</li>
+    <li><code>contextMenus</code>: the right-click item "Download with ZDM".</li>
+    <li><code>activeTab</code>, <code>scripting</code>: to read the page you are on when you ask, for the video button and the list of media.</li>
+    <li>Optional, asked only when you switch the feature on: access to all websites (to show the video button and find the video a page plays), <code>webRequest</code> (to notice the addresses of video streams a page loads; nothing is changed or blocked), and <code>cookies</code> (see above).</li>
+  </ul>
+
+  <h2>Limited use</h2>
+  <p>The use of information received from the browser's APIs adheres to the Chrome Web Store User Data Policy, including its Limited Use requirements. Data is used only to provide the extension's single purpose (handing downloads and media to the ZDM app on your computer), is not transferred to any third party, and is not used for advertising, credit or lending decisions.</p>
+
+  <h2>Your control</h2>
+  <p>Turn features off in the extension's options and the toolbar popup, remove the optional permissions in the browser's extension settings, or uninstall the extension. Cookies and detected stream addresses are not kept by the extension after you do.</p>
+
+  <h2>Changes and contact</h2>
+  <p>If this policy changes, the new version is published at this address with a new date. Contact: <b>zdm.support2@gmail.com</b>.</p>
+</section>
+
+<section id="de" lang="de" dir="ltr">
+  <h1>Zap Download Manager: Datenschutzerklärung</h1>
+  <p class="date">Browser-Erweiterung „Zap Download Manager“ (ZDM). Stand: 17.11.2026.</p>
+
+  <h2>Kurz gesagt</h2>
+  <p>Die Erweiterung sendet Informationen nur an das ZDM-Programm auf Ihrem eigenen Computer. Sie sendet nichts an einen Server von uns oder von Dritten. Wir betreiben keinen Server, der Daten der Erweiterung empfängt, es gibt keine Konten, keine Analyse, keine Werbung und kein Tracking, und wir verkaufen oder teilen nichts.</p>
+
+  <h2>Was die Erweiterung tut</h2>
+  <p>Die Erweiterung übergibt Downloads und Videos Ihres Browsers an die ZDM-Desktop-App. Sie lädt selbst nichts herunter. ZDM lehnt DRM-geschützte Inhalte ab.</p>
+
+  <h2>Was an die ZDM-App auf Ihrem Computer übergeben wird</h2>
+  <p>Über die Native-Messaging-Funktion des Browsers, die nur mit der ZDM-App auf demselben Computer verbindet:</p>
+  <ul>
+    <li><b>Wenn der Browser einen Download startet, den ZDM übernimmt:</b> die Download-Adresse, die Seite, von der er kam, und deren Titel, Dateiname, Typ und Größe laut Server sowie der User-Agent des Browsers.</li>
+    <li><b>Wenn Sie auf die Video-Schaltfläche oder eine Download-Schaltfläche im Popup der Erweiterung klicken:</b> die Adresse der Seite und der Video- oder Audio-Streams, die die Seite geladen hat (nur Adressen), damit ZDM die Qualitäten anbieten und die Datei laden kann.</li>
+    <li><b>Cookies, nur wenn Sie „Meine Cookies an ZDM weitergeben“ einschalten:</b> die Cookies des Hosts dieses einen Downloads, damit ein Download mit Anmeldung funktionieren kann. Das ist standardmäßig aus und braucht Ihre Erlaubnis im Browser. Die Cookies bleiben im Arbeitsspeicher der App, werden von ZDM nie auf die Festplatte geschrieben und nie anderswohin gesendet.</li>
+  </ul>
+  <p>Das ZDM-Programm selbst kontaktiert den Server des Downloads direkt, wie jeder Download-Manager. Dieser Verkehr stammt von der App, nicht von der Erweiterung, und geht nur an die Adresse, die Sie herunterladen wollten.</p>
+
+  <h2>Was die Erweiterung in Ihrem Browser speichert</h2>
+  <ul>
+    <li>Ihre Einstellungen und Entscheidungen (zum Beispiel auf welchen Websites die Video-Schaltfläche an ist) im Speicher der Erweiterung.</li>
+    <li>Solange eine Seite geöffnet ist, die Adressen der Video-Streams, die sie geladen hat, im temporären Sitzungsspeicher des Browsers, bis der Tab geschlossen oder der Browser neu gestartet wird. Sie werden nur bei Ihrem Klick verwendet und erst dann an die ZDM-App gesendet.</li>
+  </ul>
+
+  <h2>Berechtigungen und wofür</h2>
+  <ul>
+    <li><code>downloads</code>: um einen Download zu sehen, den der Browser startet, damit ZDM ihn übernehmen kann.</li>
+    <li><code>nativeMessaging</code>: um mit der ZDM-App auf diesem Computer zu sprechen.</li>
+    <li><code>storage</code>: für die oben genannten Einstellungen und Entscheidungen.</li>
+    <li><code>contextMenus</code>: der Rechtsklick-Eintrag „Mit ZDM herunterladen“.</li>
+    <li><code>activeTab</code>, <code>scripting</code>: um die Seite zu lesen, auf der Sie sind, wenn Sie es verlangen (Video-Schaltfläche, Medienliste).</li>
+    <li>Optional, nur beim Einschalten der Funktion abgefragt: Zugriff auf alle Websites (um die Video-Schaltfläche zu zeigen und das Video einer Seite zu finden), <code>webRequest</code> (um die Adressen geladener Video-Streams zu bemerken; nichts wird verändert oder blockiert) und <code>cookies</code> (siehe oben).</li>
+  </ul>
+
+  <h2>Eingeschränkte Verwendung (Limited Use)</h2>
+  <p>Die Verwendung von Informationen aus den APIs des Browsers entspricht der Nutzerdatenrichtlinie des Chrome Web Store einschließlich der Anforderungen zur eingeschränkten Verwendung. Daten werden nur für den einen Zweck der Erweiterung genutzt (Downloads und Medien an die ZDM-App auf Ihrem Computer übergeben), nicht an Dritte weitergegeben und nicht für Werbung oder Kreditentscheidungen verwendet.</p>
+
+  <h2>Ihre Kontrolle</h2>
+  <p>Schalten Sie Funktionen in den Optionen der Erweiterung und im Popup der Symbolleiste aus, entziehen Sie die optionalen Berechtigungen in den Erweiterungseinstellungen des Browsers oder deinstallieren Sie die Erweiterung. Danach behält die Erweiterung weder Cookies noch erkannte Stream-Adressen.</p>
+
+  <h2>Änderungen und Kontakt</h2>
+  <p>Ändert sich diese Erklärung, erscheint die neue Fassung unter dieser Adresse mit neuem Datum. Kontakt: <b>zdm.support2@gmail.com</b>.</p>
+</section>
+
+<section id="ar" lang="ar" dir="rtl">
+  <h1>Zap Download Manager: سياسة الخصوصية</h1>
+  <p class="date">إضافة المتصفح «Zap Download Manager» (ZDM). آخر تحديث: 2026-11-17.</p>
+
+  <h2>باختصار</h2>
+  <p>ترسل الإضافة المعلومات فقط إلى برنامج ZDM المثبّت على حاسوبك أنت. ولا ترسل شيئًا إلى أي خادم لنا أو لأي جهة أخرى. لا نشغّل أي خادم يستقبل بيانات من الإضافة، ولا توجد حسابات ولا تحليلات ولا إعلانات ولا تتبّع، ولا نبيع ولا نشارك أي شيء.</p>
+
+  <h2>ماذا تفعل الإضافة</h2>
+  <p>تسلّم الإضافة التنزيلات ومقاطع الفيديو من متصفحك إلى تطبيق ZDM على سطح المكتب. وهي لا تنزّل شيئًا بنفسها. ويرفض ZDM المحتوى المحمي بتقنية DRM.</p>
+
+  <h2>ما الذي يُمرَّر إلى تطبيق ZDM على حاسوبك</h2>
+  <p>عبر ميزة المراسلة الأصلية (native messaging) في المتصفح، التي لا تتصل إلا بتطبيق ZDM على الحاسوب نفسه:</p>
+  <ul>
+    <li><b>عندما يبدأ المتصفح تنزيلًا يتولاه ZDM:</b> عنوان التنزيل، والصفحة التي جاء منها وعنوانها، واسم الملف ونوعه وحجمه كما أعلنها الخادم، ووكيل المستخدم (user agent) الخاص بالمتصفح.</li>
+    <li><b>عندما تنقر على زر الفيديو أو على زر تنزيل في نافذة الإضافة المنبثقة:</b> عنوان الصفحة وعناوين بثوث الفيديو أو الصوت التي حمّلتها الصفحة (العناوين فقط)، ليتمكن ZDM من عرض الجودات وتنزيل الملف.</li>
+    <li><b>ملفات تعريف الارتباط (الكوكيز)، فقط إذا فعّلت «تمرير ملفات الكوكيز إلى ZDM»:</b> كوكيز مضيف ذلك التنزيل وحده، ليعمل تنزيل يحتاج إلى تسجيل دخول. هذا الخيار متوقف افتراضيًا ويحتاج إلى إذنك في المتصفح. تبقى الكوكيز في ذاكرة التطبيق، ولا يكتبها ZDM على القرص أبدًا، ولا تُرسل إلى أي مكان آخر.</li>
+  </ul>
+  <p>يتصل برنامج ZDM نفسه بخادم التنزيل مباشرة، كأي مدير تنزيلات. وهذه الحركة من التطبيق لا من الإضافة، ولا تذهب إلا إلى العنوان الذي اخترت تنزيله.</p>
+
+  <h2>ما الذي تحتفظ به الإضافة في متصفحك</h2>
+  <ul>
+    <li>إعداداتها واختياراتك (مثل المواقع التي يعمل فيها زر الفيديو) في تخزين الإضافة بالمتصفح.</li>
+    <li>ما دامت الصفحة مفتوحة: عناوين بثوث الفيديو التي حمّلتها، في تخزين الجلسة المؤقت للمتصفح، حتى يُغلق التبويب أو يُعاد تشغيل المتصفح. تُستخدم فقط عند نقرك، ولا تُرسل إلى تطبيق ZDM إلا حينها.</li>
+  </ul>
+
+  <h2>الأذونات ولماذا</h2>
+  <ul>
+    <li><code>downloads</code>: لرؤية التنزيل الذي يبدأه المتصفح ليتولاه ZDM.</li>
+    <li><code>nativeMessaging</code>: للتحدث مع تطبيق ZDM على هذا الحاسوب.</li>
+    <li><code>storage</code>: لحفظ الإعدادات والاختيارات المذكورة أعلاه.</li>
+    <li><code>contextMenus</code>: عنصر قائمة النقر الأيمن «التنزيل باستخدام ZDM».</li>
+    <li><code>activeTab</code> و<code>scripting</code>: لقراءة الصفحة التي أنت فيها عندما تطلب ذلك (زر الفيديو وقائمة الوسائط).</li>
+    <li>اختيارية، تُطلب فقط عند تفعيل الميزة: الوصول إلى جميع المواقع (لإظهار زر الفيديو وإيجاد الفيديو الذي تشغّله الصفحة)، و<code>webRequest</code> (لملاحظة عناوين بثوث الفيديو التي تحمّلها الصفحة؛ لا يُغيَّر شيء ولا يُحجب)، و<code>cookies</code> (انظر أعلاه).</li>
+  </ul>
+
+  <h2>الاستخدام المحدود (Limited Use)</h2>
+  <p>يلتزم استخدام المعلومات الواردة من واجهات المتصفح البرمجية بسياسة بيانات المستخدم في متجر Chrome الإلكتروني، بما فيها متطلبات الاستخدام المحدود. تُستخدم البيانات فقط لغرض الإضافة الوحيد (تسليم التنزيلات والوسائط إلى تطبيق ZDM على حاسوبك)، ولا تُنقل إلى أي طرف ثالث، ولا تُستخدم للإعلانات أو لقرارات الائتمان.</p>
+
+  <h2>تحكّمك</h2>
+  <p>أوقف الميزات من خيارات الإضافة ومن النافذة المنبثقة في شريط الأدوات، أو اسحب الأذونات الاختيارية من إعدادات الإضافات في المتصفح، أو احذف الإضافة. بعد ذلك لا تحتفظ الإضافة بأي كوكيز ولا بعناوين البثوث المكتشفة.</p>
+
+  <h2>التغييرات والتواصل</h2>
+  <p>إذا تغيّرت هذه السياسة تُنشر النسخة الجديدة على هذا العنوان بتاريخ جديد. للتواصل: <b>zdm.support2@gmail.com</b>.</p>
+</section>
+
+<script>
+// Show the language of the reader's browser first; without script all three languages are shown one below the other.
+(function () {
+  var ids = ['en', 'de', 'ar'];
+  function show() {
+    var want = (location.hash || '').slice(1);
+    if (ids.indexOf(want) < 0) want = (navigator.language || 'en').slice(0, 2);
+    if (ids.indexOf(want) < 0) want = 'en';
+    ids.forEach(function (id) { document.getElementById(id).hidden = id !== want; });
+    document.documentElement.lang = want;
+  }
+  window.addEventListener('hashchange', show);
+  show();
+})();
+</script>
+</body>
+</html>
