@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zap Download Manager</title>
+<meta name="description" content="Zap Download Manager: a fast, free download manager for Windows with a video and audio button for Chrome, Edge and Firefox. No tracking.">
+<link rel="icon" href="img/mark.svg" type="image/svg+xml">
+<style>
+  :root {
+    color-scheme: dark;
+    --bg: #1e2025; --panel: #25282e; --fg: #e8eaee; --muted: #a3a7b0; --line: rgba(255, 255, 255, .14); --soft: rgba(255, 255, 255, .07);
+    --accent: #ea435b; --on-accent: #1a1012;
+    font: 16px/1.6 system-ui, "Segoe UI", Tahoma, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); }
+  a { color: inherit; }
+  .wrap { max-width: 64rem; margin: 0 auto; padding: 0 16px; }
+
+  /* the language of the page: only the text of the chosen language shows (English without script) */
+  body [lang] { display: none; }
+  html[data-lang="en"] body [lang="en"], html[data-lang="de"] body [lang="de"], html[data-lang="ar"] body [lang="ar"] { display: inline; }
+
+  header { display: flex; align-items: center; gap: 16px; padding: 18px 0; }
+  header img { height: 34px; width: auto; display: block; }
+  nav { margin-inline-start: auto; display: flex; gap: 8px; }
+  nav a { padding: 4px 12px; border: 1px solid var(--line); border-radius: 6px; text-decoration: none; color: var(--muted); font-size: 14px; }
+  nav a:hover, nav a[aria-current="true"] { color: var(--fg); border-color: var(--accent); }
+
+  .hero { text-align: center; padding: 40px 0 24px; }
+  h1 { font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.15; margin: 0 0 16px; font-weight: 650; }
+  .lead { color: var(--muted); font-size: 1.15rem; max-width: 40rem; margin: 0 auto 28px; }
+  .button { display: inline-block; background: var(--accent); color: var(--on-accent); font-weight: 650; font-size: 1.2rem; padding: 14px 32px; border-radius: 10px; text-decoration: none; }
+  .button:hover { filter: brightness(1.08); }
+  .button:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .small { color: var(--muted); font-size: 14px; margin: 12px 0 0; }
+  .shot { margin: 40px auto 0; max-width: 54rem; }
+  .shot img, figure img { width: 100%; height: auto; display: block; border-radius: 10px; border: 1px solid var(--line); }
+
+  h2 { font-size: 1.5rem; margin: 0 0 20px; }
+  section { padding: 48px 0 0; }
+  .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 16px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 20px; }
+  .card svg { width: 28px; height: 28px; stroke: var(--accent); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; margin-bottom: 8px; display: block; }
+  .card h3 { margin: 0 0 6px; font-size: 1.05rem; }
+  .card p { margin: 0; color: var(--muted); font-size: 15px; }
+
+  .shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); gap: 20px; }
+  figure { margin: 0; }
+  figcaption { color: var(--muted); font-size: 14px; margin-top: 8px; }
+
+  .browsers { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 16px; }
+  .browser { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px 20px; }
+  .browser b { font-size: 1.05rem; }
+  .soon { font-size: 12px; color: var(--muted); border: 1px solid var(--line); border-radius: 20px; padding: 2px 10px; white-space: nowrap; }
+  .note { background: var(--panel); border: 1px solid var(--line); border-inline-start: 4px solid var(--accent); border-radius: 8px; padding: 16px 20px; color: var(--muted); }
+  .note b { color: var(--fg); }
+
+  footer { margin-top: 64px; padding: 24px 0 48px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; display: flex; flex-wrap: wrap; gap: 8px 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img src="img/logo.svg" alt="ZDM: Zap Download Manager" width="124" height="36">
+    <nav aria-label="Language"><a href="#en" hreflang="en" data-set="en">English</a><a href="#de" hreflang="de" data-set="de">Deutsch</a><a href="#ar" hreflang="ar" data-set="ar">العربية</a></nav>
+  </header>
+
+  <main>
+    <div class="hero">
+      <h1>
+        <span lang="en">Fast, reliable downloads for Windows.</span>
+        <span lang="de">Schnelle, zuverlässige Downloads für Windows.</span>
+        <span lang="ar">تنزيلات سريعة وموثوقة لنظام ويندوز.</span>
+      </h1>
+      <p class="lead">
+        <span lang="en">Zap Download Manager splits every file into parts, carries on after a lost connection, and grabs the videos and audio you watch. Free, and it keeps no track of you.</span>
+        <span lang="de">Zap Download Manager teilt jede Datei in Teile, macht nach einem Verbindungsabbruch weiter und lädt die Videos und Audios, die Sie ansehen. Kostenlos, und er verfolgt Sie nicht.</span>
+        <span lang="ar">يقسّم Zap Download Manager كل ملف إلى أجزاء، ويكمل بعد انقطاع الاتصال، وينزّل مقاطع الفيديو والصوت التي تشاهدها. مجاني ولا يتتبّعك.</span>
+      </p>
+      <a class="button" href="https://github.com/MohamadTemsah/zdm-site/releases/latest">
+        <span lang="en">Download for Windows</span><span lang="de">Für Windows herunterladen</span><span lang="ar">تنزيل لنظام ويندوز</span>
+      </a>
+      <p class="small">
+        <span lang="en">Windows 10 (1809 or later) and Windows 11, 64-bit. English, German and Arabic.</span>
+        <span lang="de">Windows 10 (ab Version 1809) und Windows 11, 64-Bit. Englisch, Deutsch und Arabisch.</span>
+        <span lang="ar">ويندوز 10 (الإصدار 1809 فأحدث) وويندوز 11، 64 بت. الإنجليزية والألمانية والعربية.</span>
+      </p>
+      <div class="shot"><img src="img/app.jpg" width="1280" height="800" alt=""></div>
+    </div>
+
+    <section>
+      <h2><span lang="en">What it does</span><span lang="de">Was er kann</span><span lang="ar">ما الذي يفعله</span></h2>
+      <div class="features">
+        <div class="card">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>
+          <h3><span lang="en">Faster downloads</span><span lang="de">Schnellere Downloads</span><span lang="ar">تنزيلات أسرع</span></h3>
+          <p><span lang="en">Every file is fetched in several parts at once, so a slow line is used to the full.</span><span lang="de">Jede Datei wird in mehreren Teilen gleichzeitig geladen, damit auch eine langsame Leitung voll genutzt wird.</span><span lang="ar">يُنزَّل كل ملف على عدة أجزاء في وقت واحد، فيُستفاد من الخط البطيء إلى أقصى حد.</span></p>
+        </div>
+        <div class="card">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8.5v7l6-3.5z"/></svg>
+          <h3><span lang="en">Video and audio button</span><span lang="de">Video- und Audio-Schaltfläche</span><span lang="ar">زر الفيديو والصوت</span></h3>
+          <p><span lang="en">A small button on the player lists the qualities. Pick one, or sound only (MP3 or the original).</span><span lang="de">Eine kleine Schaltfläche am Player zeigt die Qualitäten. Wählen Sie eine, oder nur den Ton (MP3 oder das Original).</span><span lang="ar">يعرض زر صغير على المشغّل الجودات المتاحة. اختر واحدة، أو الصوت فقط (MP3 أو الأصلي).</span></p>
+        </div>
+        <div class="card">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          <h3><span lang="en">Pause, resume, schedule</span><span lang="de">Pausieren, fortsetzen, planen</span><span lang="ar">إيقاف مؤقت واستئناف وجدولة</span></h3>
+          <p><span lang="en">Stop any time and carry on later, even after a power cut. Queues and a scheduler start downloads when you want.</span><span lang="de">Jederzeit anhalten und später weitermachen, sogar nach einem Stromausfall. Warteschlangen und ein Zeitplan starten Downloads, wann Sie wollen.</span><span lang="ar">أوقف في أي وقت وأكمل لاحقًا، حتى بعد انقطاع الكهرباء. تبدأ قوائم الانتظار والجدولة التنزيلات متى شئت.</span></p>
+        </div>
+        <div class="card">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/></svg>
+          <h3><span lang="en">Works with your browser</span><span lang="de">Arbeitet mit Ihrem Browser</span><span lang="ar">يعمل مع متصفحك</span></h3>
+          <p><span lang="en">Chrome, Edge and Firefox hand their downloads to ZDM. Sites with DRM protection are refused at once.</span><span lang="de">Chrome, Edge und Firefox übergeben ihre Downloads an ZDM. Seiten mit DRM-Schutz werden sofort abgelehnt.</span><span lang="ar">تسلّم Chrome وEdge وFirefox تنزيلاتها إلى ZDM. تُرفض المواقع المحمية بتقنية DRM فورًا.</span></p>
+        </div>
+        <div class="card">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg>
+          <h3><span lang="en">No tracking</span><span lang="de">Kein Tracking</span><span lang="ar">بلا تتبّع</span></h3>
+          <p><span lang="en">No accounts, no ads, no analytics. The browser extension talks only to the app on your own computer.</span><span lang="de">Keine Konten, keine Werbung, keine Analyse. Die Browser-Erweiterung spricht nur mit der App auf Ihrem eigenen Computer.</span><span lang="ar">بلا حسابات ولا إعلانات ولا تحليلات. تتحدث إضافة المتصفح فقط مع التطبيق على حاسوبك أنت.</span></p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="shots">
+        <figure><img src="img/video.jpg" width="1280" height="800" loading="lazy" alt="">
+          <figcaption><span lang="en">The ZDM button on a video: pick the quality, MP4, MKV or sound only.</span><span lang="de">Die ZDM-Schaltfläche am Video: Qualität wählen, MP4, MKV oder nur Ton.</span><span lang="ar">زر ZDM على الفيديو: اختر الجودة، MP4 أو MKV أو الصوت فقط.</span></figcaption></figure>
+        <figure><img src="img/audio.jpg" width="1280" height="800" loading="lazy" alt="">
+          <figcaption><span lang="en">Audio pages too: download the sound as MP3.</span><span lang="de">Auch Audioseiten: den Ton als MP3 laden.</span><span lang="ar">وصفحات الصوت أيضًا: نزّل الصوت بصيغة MP3.</span></figcaption></figure>
+      </div>
+    </section>
+
+    <section>
+      <h2><span lang="en">Browser extension</span><span lang="de">Browser-Erweiterung</span><span lang="ar">إضافة المتصفح</span></h2>
+      <p style="color:var(--muted);margin-top:0">
+        <span lang="en">The installer can offer the extension to Edge and Chrome, and opens the Firefox page at the end of setup. The store pages are in review.</span>
+        <span lang="de">Das Installationsprogramm kann die Erweiterung Edge und Chrome anbieten und öffnet am Ende die Firefox-Seite. Die Store-Seiten sind in Prüfung.</span>
+        <span lang="ar">يمكن لبرنامج التثبيت عرض الإضافة على Edge وChrome، ويفتح صفحة Firefox في نهاية التثبيت. صفحات المتاجر قيد المراجعة.</span>
+      </p>
+      <!-- When a store approves the extension, turn its <span class="browser"> into <a class="browser" href="..."> and replace the "Coming soon" badge by "Get it".
+           Firefox: https://addons.mozilla.org/firefox/addon/zap-download-manager/ (listed, in review). -->
+      <div class="browsers">
+        <span class="browser"><b>Chrome</b><span class="soon"><span lang="en">Coming soon</span><span lang="de">Bald verfügbar</span><span lang="ar">قريبًا</span></span></span>
+        <span class="browser"><b>Edge</b><span class="soon"><span lang="en">Coming soon</span><span lang="de">Bald verfügbar</span><span lang="ar">قريبًا</span></span></span>
+        <span class="browser"><b>Firefox</b><span class="soon"><span lang="en">Coming soon</span><span lang="de">Bald verfügbar</span><span lang="ar">قريبًا</span></span></span>
+      </div>
+    </section>
+
+    <section>
+      <div class="note">
+        <span lang="en"><b>Windows may warn you.</b> The installer is not code-signed yet, so SmartScreen can say "Windows protected your PC" and "unknown publisher". Click <b>More info</b>, then <b>Run anyway</b>. Download only from this page or the release page it links to.</span>
+        <span lang="de"><b>Windows kann warnen.</b> Das Installationsprogramm ist noch nicht signiert, daher kann SmartScreen „Der Computer wurde durch Windows geschützt“ und „Unbekannter Herausgeber“ melden. Klicken Sie auf <b>Weitere Informationen</b>, dann auf <b>Trotzdem ausführen</b>. Laden Sie nur von dieser Seite oder der verlinkten Release-Seite herunter.</span>
+        <span lang="ar"><b>قد يحذّرك ويندوز.</b> برنامج التثبيت غير موقَّع رقميًا بعد، لذلك قد يعرض SmartScreen عبارة «حماية ويندوز لجهازك» و«ناشر غير معروف». انقر <b>مزيد من المعلومات</b> ثم <b>تشغيل على أي حال</b>. نزّل فقط من هذه الصفحة أو من صفحة الإصدارات التي تربط بها.</span>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <a href="privacy/"><span lang="en">Privacy policy</span><span lang="de">Datenschutzerklärung</span><span lang="ar">سياسة الخصوصية</span></a>
+    <a href="mailto:zdm.support2@gmail.com"><span lang="en">Support:</span><span lang="de">Support:</span><span lang="ar">الدعم:</span> zdm.support2@gmail.com</a>
+    <a href="https://github.com/MohamadTemsah/zdm-site/releases"><span lang="en">All releases</span><span lang="de">Alle Versionen</span><span lang="ar">كل الإصدارات</span></a>
+  </footer>
+</div>
+
+<script>
+// The language: the address (#de), else the browser's, else English. Without script the page stays in English.
+(function () {
+  var ids = ['en', 'de', 'ar'];
+  function show() {
+    var want = (location.hash || '').slice(1);
+    if (ids.indexOf(want) < 0) want = (navigator.language || 'en').slice(0, 2);
+    if (ids.indexOf(want) < 0) want = 'en';
+    var root = document.documentElement;
+    root.setAttribute('data-lang', want);
+    root.lang = want;
+    root.dir = want === 'ar' ? 'rtl' : 'ltr';
+    [].forEach.call(document.querySelectorAll('nav a'), function (a) { a.setAttribute('aria-current', String(a.getAttribute('data-set') === want)); });
+  }
+  window.addEventListener('hashchange', show);
+  show();
+})();
+</script>
+</body>
+</html>
