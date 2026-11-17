@@ -9,8 +9,9 @@
 <style>
   :root {
     color-scheme: dark;
-    --bg: #1e2025; --panel: #25282e; --fg: #e8eaee; --muted: #a3a7b0; --line: rgba(255, 255, 255, .14); --soft: rgba(255, 255, 255, .07);
+    --bg: #1e2025; --deep: #16181c; --panel: #25282e; --fg: #e8eaee; --muted: #a3a7b0; --line: rgba(255, 255, 255, .14); --soft: rgba(255, 255, 255, .07);
     --accent: #ea435b; --on-accent: #1a1012;
+    --display: Bahnschrift, "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif; /* Bahnschrift: Windows' own DIN-like face, close to the logo's lettering; others fall back */
     font: 16px/1.6 system-ui, "Segoe UI", Tahoma, sans-serif;
   }
   * { box-sizing: border-box; }
@@ -22,6 +23,16 @@
   body [lang] { display: none; }
   html[data-lang="en"] body [lang="en"], html[data-lang="de"] body [lang="de"], html[data-lang="ar"] body [lang="ar"] { display: inline; }
 
+  /* the top: a glow of the accent and a faint grid that fades out, made of CSS alone */
+  .top { background:
+      radial-gradient(60% 55% at 50% 0%, rgba(234, 67, 91, .20), transparent 72%),
+      linear-gradient(var(--deep), var(--bg) 85%); position: relative; overflow: hidden; }
+  .top::before { content: ""; position: absolute; inset: 0; pointer-events: none;
+    background-image: linear-gradient(var(--soft) 1px, transparent 1px), linear-gradient(90deg, var(--soft) 1px, transparent 1px);
+    background-size: 44px 44px; opacity: .55;
+    -webkit-mask-image: radial-gradient(70% 60% at 50% 20%, #000, transparent 75%); mask-image: radial-gradient(70% 60% at 50% 20%, #000, transparent 75%); }
+  .top > * { position: relative; }
+
   header { display: flex; align-items: center; gap: 16px; padding: 18px 0; }
   header img { height: 34px; width: auto; display: block; }
   nav { margin-inline-start: auto; display: flex; gap: 8px; }
@@ -29,45 +40,86 @@
   nav a:hover, nav a[aria-current="true"] { color: var(--fg); border-color: var(--accent); }
 
   .hero { text-align: center; padding: 40px 0 24px; }
-  h1 { font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.15; margin: 0 0 16px; font-weight: 650; }
+  h1, h2, h3 { font-family: var(--display); letter-spacing: -.01em; }
+  h1 { font-size: clamp(2.2rem, 5.5vw, 3.5rem); line-height: 1.1; margin: 0 0 16px; font-weight: 600; }
   .lead { color: var(--muted); font-size: 1.15rem; max-width: 40rem; margin: 0 auto 28px; }
-  .button { display: inline-block; background: var(--accent); color: var(--on-accent); font-weight: 650; font-size: 1.2rem; padding: 14px 32px; border-radius: 10px; text-decoration: none; }
-  .button:hover { filter: brightness(1.08); }
-  .button:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .button { display: inline-block; background: var(--accent); color: var(--on-accent); font-weight: 650; font-size: 1.2rem; padding: 14px 32px; border-radius: 10px; text-decoration: none;
+    box-shadow: 0 8px 30px rgba(234, 67, 91, .28); transition: filter .15s, box-shadow .15s; }
+  .button:hover { filter: brightness(1.08); box-shadow: 0 10px 38px rgba(234, 67, 91, .4); }
+  .button:focus-visible, a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
   .small { color: var(--muted); font-size: 14px; margin: 12px 0 0; }
   .shot { margin: 40px auto 0; max-width: 54rem; }
   .shot img, figure img { width: 100%; height: auto; display: block; border-radius: 10px; border: 1px solid var(--line); }
+  .shot img { box-shadow: 0 30px 80px rgba(0, 0, 0, .55); }
 
-  h2 { font-size: 1.5rem; margin: 0 0 20px; }
-  section { padding: 48px 0 0; }
-  .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 16px; }
+  h2 { font-size: 1.6rem; margin: 0 0 20px; font-weight: 600; }
+  section { padding: 56px 0 0; }
+
+  /* one file, fetched in parallel parts: the page's one drawn moment */
+  .split { margin: 0; }
+  .split svg { width: 100%; height: auto; display: block; direction: ltr; }
+  .split figcaption { text-align: center; max-width: 36rem; margin: 8px auto 0; }
+  .split .track { fill: var(--soft); }
+  .split .bar { fill: var(--accent); transform-box: fill-box; transform-origin: left center; }
+  .split .wire { fill: none; stroke: var(--line); stroke-width: 2; }
+  .split .doc { fill: var(--panel); stroke: var(--line); stroke-width: 2; }
+  .split .doc.done { stroke: var(--accent); }
+  .split .fold { fill: none; stroke: var(--muted); stroke-width: 2; }
+  .js .split .bar { transform: scaleX(0); }
+  .js .split.in .bar { animation: fill 2.6s cubic-bezier(.3, .6, .3, 1) forwards; animation-delay: var(--d); }
+  @keyframes fill { to { transform: scaleX(1); } }
+
+  .features { display: grid; grid-template-columns: 1fr; gap: 16px; }
+  @media (min-width: 36rem) { .features { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 56rem) { .features { grid-template-columns: repeat(3, 1fr); } }  /* 12 cards: no empty slot at 1, 2 or 3 columns */
   .card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 20px; }
   .card svg { width: 28px; height: 28px; stroke: var(--accent); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; margin-bottom: 8px; display: block; }
-  .card h3 { margin: 0 0 6px; font-size: 1.05rem; }
+  .card h3 { margin: 0 0 6px; font-size: 1.1rem; font-weight: 600; }
   .card p { margin: 0; color: var(--muted); font-size: 15px; }
 
   .shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); gap: 20px; }
   figure { margin: 0; }
   figcaption { color: var(--muted); font-size: 14px; margin-top: 8px; }
 
-  .browsers { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 16px; }
+  .browsers { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }  /* six: two or three columns, never a gap */
+  @media (min-width: 44rem) { .browsers { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 30rem) { .browsers { grid-template-columns: 1fr; } }
   .browser { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px 20px; }
-  .browser b { font-size: 1.05rem; }
+  .browser b { font-size: 1.05rem; font-family: var(--display); font-weight: 600; }
   .soon { font-size: 12px; color: var(--muted); border: 1px solid var(--line); border-radius: 20px; padding: 2px 10px; white-space: nowrap; }
   .note { background: var(--panel); border: 1px solid var(--line); border-inline-start: 4px solid var(--accent); border-radius: 8px; padding: 16px 20px; color: var(--muted); }
   .note b { color: var(--fg); }
 
+  /* "See it in action": hidden until a video address is written in data-video (see the script); nothing is loaded from YouTube until the button is pressed */
+  .player { position: relative; aspect-ratio: 16 / 9; max-width: 48rem; margin: 0 auto; border: 1px solid var(--line); border-radius: 12px; overflow: hidden;
+    background: radial-gradient(70% 90% at 50% 40%, rgba(234, 67, 91, .22), transparent 70%), var(--deep); }
+  .player iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .play { position: absolute; inset: 0; width: 100%; border: 0; background: none; color: var(--fg); cursor: pointer; display: grid; place-content: center; justify-items: center; gap: 12px; font: inherit; }
+  .play i { width: 72px; height: 72px; border-radius: 50%; background: var(--accent); display: grid; place-items: center; box-shadow: 0 8px 30px rgba(234, 67, 91, .35); }
+  .play svg { width: 28px; height: 28px; fill: var(--on-accent); margin-inline-start: 4px; }
+  .play span { color: var(--muted); font-size: 14px; }
+
   footer { margin-top: 64px; padding: 24px 0 48px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; display: flex; flex-wrap: wrap; gap: 8px 24px; }
+
+  /* a gentle fade-in as a block comes into view (only with script, and never for people who asked for less motion) */
+  .js .reveal { opacity: 0; transform: translateY(8px); transition: opacity .6s ease, transform .6s ease; transition-delay: var(--d, 0s); }
+  .js .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .js .reveal { opacity: 1; transform: none; transition: none; }
+    .js .split .bar, .js .split.in .bar { transform: none; animation: none; }
+    .button { transition: none; }
+  }
 </style>
+<script>document.documentElement.className = 'js';</script>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <img src="img/logo.svg" alt="ZDM: Zap Download Manager" width="124" height="36">
-    <nav aria-label="Language"><a href="#en" hreflang="en" data-set="en">English</a><a href="#de" hreflang="de" data-set="de">Deutsch</a><a href="#ar" hreflang="ar" data-set="ar">العربية</a></nav>
-  </header>
+<div class="top">
+  <div class="wrap">
+    <header>
+      <img src="img/logo.svg" alt="ZDM: Zap Download Manager" width="124" height="36">
+      <nav aria-label="Language"><a href="#en" hreflang="en" data-set="en">English</a><a href="#de" hreflang="de" data-set="de">Deutsch</a><a href="#ar" hreflang="ar" data-set="ar">العربية</a></nav>
+    </header>
 
-  <main>
     <div class="hero">
       <h1>
         <span lang="en">Fast, reliable downloads for Windows.</span>
@@ -89,31 +141,92 @@
       </p>
       <div class="shot"><img src="img/app.jpg" width="1280" height="800" alt=""></div>
     </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <main>
+    <section>
+      <figure class="split reveal">
+        <svg viewBox="0 0 880 230" role="img" aria-label="One file is split into four parts that download side by side and are joined again">
+          <path class="wire" d="M92 115 C150 115 140 40 200 40 M92 115 C150 115 150 90 200 90 M92 115 C150 115 150 140 200 140 M92 115 C150 115 140 190 200 190"/>
+          <path class="wire" d="M680 40 C740 40 730 115 788 115 M680 90 C740 90 740 115 788 115 M680 140 C740 140 740 115 788 115 M680 190 C740 190 730 115 788 115"/>
+          <g>
+            <rect class="track" x="200" y="31" width="480" height="18" rx="9"/><rect class="bar" style="--d:.1s" x="200" y="31" width="480" height="18" rx="9"/>
+            <rect class="track" x="200" y="81" width="480" height="18" rx="9"/><rect class="bar" style="--d:.45s" x="200" y="81" width="480" height="18" rx="9"/>
+            <rect class="track" x="200" y="131" width="480" height="18" rx="9"/><rect class="bar" style="--d:.25s" x="200" y="131" width="480" height="18" rx="9"/>
+            <rect class="track" x="200" y="181" width="480" height="18" rx="9"/><rect class="bar" style="--d:.7s" x="200" y="181" width="480" height="18" rx="9"/>
+          </g>
+          <g class="doc-left"><path class="doc" d="M44 85h32l16 16v44H44z"/><path class="fold" d="M76 85v16h16"/></g>
+          <g><path class="doc done" d="M788 85h32l16 16v44h-48z"/><path class="fold" d="M820 85v16h16"/></g>
+        </svg>
+        <figcaption>
+          <span lang="en">One file is fetched in several parts at once, then joined.</span>
+          <span lang="de">Eine Datei wird in mehreren Teilen gleichzeitig geladen und dann zusammengesetzt.</span>
+          <span lang="ar">يُنزَّل الملف على عدة أجزاء في وقت واحد ثم يُجمَع.</span>
+        </figcaption>
+      </figure>
+    </section>
 
     <section>
       <h2><span lang="en">What it does</span><span lang="de">Was er kann</span><span lang="ar">ما الذي يفعله</span></h2>
       <div class="features">
-        <div class="card">
+        <div class="card reveal">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>
           <h3><span lang="en">Faster downloads</span><span lang="de">Schnellere Downloads</span><span lang="ar">تنزيلات أسرع</span></h3>
           <p><span lang="en">Every file is fetched in several parts at once, so a slow line is used to the full.</span><span lang="de">Jede Datei wird in mehreren Teilen gleichzeitig geladen, damit auch eine langsame Leitung voll genutzt wird.</span><span lang="ar">يُنزَّل كل ملف على عدة أجزاء في وقت واحد، فيُستفاد من الخط البطيء إلى أقصى حد.</span></p>
         </div>
-        <div class="card">
+        <div class="card reveal">
           <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8.5v7l6-3.5z"/></svg>
           <h3><span lang="en">Video and audio button</span><span lang="de">Video- und Audio-Schaltfläche</span><span lang="ar">زر الفيديو والصوت</span></h3>
           <p><span lang="en">A small button on the player lists the qualities. Pick one, or sound only (MP3 or the original).</span><span lang="de">Eine kleine Schaltfläche am Player zeigt die Qualitäten. Wählen Sie eine, oder nur den Ton (MP3 oder das Original).</span><span lang="ar">يعرض زر صغير على المشغّل الجودات المتاحة. اختر واحدة، أو الصوت فقط (MP3 أو الأصلي).</span></p>
         </div>
-        <div class="card">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-          <h3><span lang="en">Pause, resume, schedule</span><span lang="de">Pausieren, fortsetzen, planen</span><span lang="ar">إيقاف مؤقت واستئناف وجدولة</span></h3>
-          <p><span lang="en">Stop any time and carry on later, even after a power cut. Queues and a scheduler start downloads when you want.</span><span lang="de">Jederzeit anhalten und später weitermachen, sogar nach einem Stromausfall. Warteschlangen und ein Zeitplan starten Downloads, wann Sie wollen.</span><span lang="ar">أوقف في أي وقت وأكمل لاحقًا، حتى بعد انقطاع الكهرباء. تبدأ قوائم الانتظار والجدولة التنزيلات متى شئت.</span></p>
+        <div class="card reveal">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h12M4 11h12M4 16h7"/><path d="M16 14v6l5-3z"/></svg>
+          <h3><span lang="en">Playlists</span><span lang="de">Playlists</span><span lang="ar">قوائم التشغيل</span></h3>
+          <p><span lang="en">Open a YouTube playlist, tick the videos you want, and ZDM saves them in their own folder, in order.</span><span lang="de">Eine YouTube-Playlist öffnen, die gewünschten Videos ankreuzen – ZDM legt sie in einem eigenen Ordner ab, der Reihe nach.</span><span lang="ar">افتح قائمة تشغيل يوتيوب، وحدّد الفيديوهات التي تريدها، فيحفظها ZDM في مجلد خاص بها بالترتيب.</span></p>
         </div>
-        <div class="card">
+        <div class="card reveal">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 9v6M14 9v6"/></svg>
+          <h3><span lang="en">Pause and resume</span><span lang="de">Pausieren und fortsetzen</span><span lang="ar">إيقاف مؤقت واستئناف</span></h3>
+          <p><span lang="en">Stop any time and carry on later, even after a power cut. When the connection drops, ZDM waits and goes on by itself.</span><span lang="de">Jederzeit anhalten und später weitermachen, sogar nach einem Stromausfall. Bricht die Verbindung ab, wartet ZDM und macht von selbst weiter.</span><span lang="ar">أوقف في أي وقت وأكمل لاحقًا، حتى بعد انقطاع الكهرباء. وعند انقطاع الاتصال ينتظر ZDM ويتابع تلقائيًا.</span></p>
+        </div>
+        <div class="card reveal">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+          <h3><span lang="en">Queues and scheduler</span><span lang="de">Warteschlangen und Zeitplan</span><span lang="ar">قوائم الانتظار والجدولة</span></h3>
+          <p><span lang="en">Sort downloads into queues and start them at a set time on the days you choose. ZDM can shut the PC down when they finish.</span><span lang="de">Downloads in Warteschlangen sortieren und zu einer festen Zeit an den gewählten Tagen starten. ZDM kann den PC herunterfahren, wenn sie fertig sind.</span><span lang="ar">رتّب التنزيلات في قوائم انتظار وابدأها في وقت محدد وفي الأيام التي تختارها. ويمكن لـ ZDM إطفاء الحاسوب عند الانتهاء.</span></p>
+        </div>
+        <div class="card reveal">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 16a8 8 0 1 1 16 0"/><path d="M12 16l4-5"/></svg>
+          <h3><span lang="en">Speed limit</span><span lang="de">Geschwindigkeitsbegrenzung</span><span lang="ar">تحديد السرعة</span></h3>
+          <p><span lang="en">Cap the speed of the whole app, or of each download, so your line stays free for everything else.</span><span lang="de">Die Geschwindigkeit der ganzen App oder jedes Downloads begrenzen, damit Ihre Leitung für alles andere frei bleibt.</span><span lang="ar">حدّد سرعة التطبيق كله أو كل تنزيل على حدة، ليبقى خطك متاحًا لبقية استخداماتك.</span></p>
+        </div>
+        <div class="card reveal">
           <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/></svg>
           <h3><span lang="en">Works with your browser</span><span lang="de">Arbeitet mit Ihrem Browser</span><span lang="ar">يعمل مع متصفحك</span></h3>
           <p><span lang="en">Chrome, Edge and Firefox hand their downloads to ZDM. Sites with DRM protection are refused at once.</span><span lang="de">Chrome, Edge und Firefox übergeben ihre Downloads an ZDM. Seiten mit DRM-Schutz werden sofort abgelehnt.</span><span lang="ar">تسلّم Chrome وEdge وFirefox تنزيلاتها إلى ZDM. تُرفض المواقع المحمية بتقنية DRM فورًا.</span></p>
         </div>
-        <div class="card">
+        <div class="card reveal">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4h6v3H9z"/><rect x="5" y="5" width="14" height="16" rx="2"/><path d="M9 14h6M9 17h4"/></svg>
+          <h3><span lang="en">Links from the clipboard</span><span lang="de">Links aus der Zwischenablage</span><span lang="ar">روابط من الحافظة</span></h3>
+          <p><span lang="en">Optional, and off until you switch it on: copy a link to a file and ZDM offers to download it. Copied passwords are never read.</span><span lang="de">Optional und aus, bis Sie es einschalten: Einen Dateilink kopieren, und ZDM bietet den Download an. Kopierte Passwörter werden nie gelesen.</span><span lang="ar">اختياري ومتوقف حتى تشغّله: انسخ رابط ملف فيعرض ZDM تنزيله. ولا تُقرأ كلمات المرور المنسوخة أبدًا.</span></p>
+        </div>
+        <div class="card reveal">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"/><path d="M9 14l2 2 4-4"/></svg>
+          <h3><span lang="en">Checksum check</span><span lang="de">Prüfsummen-Kontrolle</span><span lang="ar">فحص المجموع الاختباري</span></h3>
+          <p><span lang="en">When a site publishes a SHA-256 or SHA-512 checksum, ZDM checks the finished file against it.</span><span lang="de">Veröffentlicht eine Website eine SHA-256- oder SHA-512-Prüfsumme, vergleicht ZDM die fertige Datei damit.</span><span lang="ar">عندما ينشر موقع مجموعًا اختباريًا SHA-256 أو SHA-512، يفحص ZDM الملف المكتمل مقابله.</span></p>
+        </div>
+        <div class="card reveal">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z"/></svg>
+          <h3><span lang="en">Themes and accent colours</span><span lang="de">Designs und Akzentfarben</span><span lang="ar">سمات وألوان مميّزة</span></h3>
+          <p><span lang="en">Follow Windows, or choose light or dark, with five accent colours and three interface sizes.</span><span lang="de">Windows folgen, oder hell oder dunkel wählen, mit fünf Akzentfarben und drei Oberflächengrößen.</span><span lang="ar">اتبع ويندوز أو اختر الفاتح أو الداكن، مع خمسة ألوان مميّزة وثلاثة أحجام للواجهة.</span></p>
+        </div>
+        <div class="card reveal">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg>
+          <h3><span lang="en">English, German, Arabic</span><span lang="de">Englisch, Deutsch, Arabisch</span><span lang="ar">الإنجليزية والألمانية والعربية</span></h3>
+          <p><span lang="en">The app and the browser extension speak all three, and Arabic is laid out right to left.</span><span lang="de">App und Browser-Erweiterung sprechen alle drei, und Arabisch wird von rechts nach links gesetzt.</span><span lang="ar">يتحدث التطبيق وإضافة المتصفح اللغات الثلاث، وتُعرض العربية من اليمين إلى اليسار.</span></p>
+        </div>
+        <div class="card reveal">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg>
           <h3><span lang="en">No tracking</span><span lang="de">Kein Tracking</span><span lang="ar">بلا تتبّع</span></h3>
           <p><span lang="en">No accounts, no ads, no analytics. The browser extension talks only to the app on your own computer.</span><span lang="de">Keine Konten, keine Werbung, keine Analyse. Die Browser-Erweiterung spricht nur mit der App auf Ihrem eigenen Computer.</span><span lang="ar">بلا حسابات ولا إعلانات ولا تحليلات. تتحدث إضافة المتصفح فقط مع التطبيق على حاسوبك أنت.</span></p>
@@ -121,11 +234,22 @@
       </div>
     </section>
 
+    <!-- "See it in action": write a YouTube address (watch?v=..., youtu.be/... or the 11-character id) in data-video and the section appears. -->
+    <section id="demo" hidden data-video="">
+      <h2><span lang="en">See it in action</span><span lang="de">Sehen Sie es in Aktion</span><span lang="ar">شاهده أثناء العمل</span></h2>
+      <div class="player">
+        <button class="play" type="button">
+          <i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4v16l14-8z"/></svg></i>
+          <span><span lang="en">Play the video. It loads from YouTube, without cookies, only when you press this.</span><span lang="de">Video abspielen. Es wird erst beim Klick von YouTube geladen, ohne Cookies.</span><span lang="ar">شغّل الفيديو. لا يُحمَّل من يوتيوب إلا عند الضغط هنا، وبلا ملفات تعريف ارتباط.</span></span>
+        </button>
+      </div>
+    </section>
+
     <section>
       <div class="shots">
-        <figure><img src="img/video.jpg" width="1280" height="800" loading="lazy" alt="">
+        <figure class="reveal"><img src="img/video.jpg" width="1280" height="800" loading="lazy" alt="">
           <figcaption><span lang="en">The ZDM button on a video: pick the quality, MP4, MKV or sound only.</span><span lang="de">Die ZDM-Schaltfläche am Video: Qualität wählen, MP4, MKV oder nur Ton.</span><span lang="ar">زر ZDM على الفيديو: اختر الجودة، MP4 أو MKV أو الصوت فقط.</span></figcaption></figure>
-        <figure><img src="img/audio.jpg" width="1280" height="800" loading="lazy" alt="">
+        <figure class="reveal" style="--d:.1s"><img src="img/audio.jpg" width="1280" height="800" loading="lazy" alt="">
           <figcaption><span lang="en">Audio pages too: download the sound as MP3.</span><span lang="de">Auch Audioseiten: den Ton als MP3 laden.</span><span lang="ar">وصفحات الصوت أيضًا: نزّل الصوت بصيغة MP3.</span></figcaption></figure>
       </div>
     </section>
@@ -137,17 +261,20 @@
         <span lang="de">Das Installationsprogramm kann die Erweiterung Edge und Chrome anbieten und öffnet am Ende die Firefox-Seite. Die Store-Seiten sind in Prüfung.</span>
         <span lang="ar">يمكن لبرنامج التثبيت عرض الإضافة على Edge وChrome، ويفتح صفحة Firefox في نهاية التثبيت. صفحات المتاجر قيد المراجعة.</span>
       </p>
-      <!-- When a store approves the extension, turn its <span class="browser"> into <a class="browser" href="..."> and replace the "Coming soon" badge by "Get it".
-           Firefox: https://addons.mozilla.org/firefox/addon/zap-download-manager/ (listed, in review). -->
+      <!-- When a store approves the extension, turn its <span class="browser"> into <a class="browser" href="..."> and replace the badge by "Get it".
+           Firefox: https://addons.mozilla.org/firefox/addon/zap-download-manager/ (listed, in review). Brave, Opera and Vivaldi install from the Chrome Web Store: link them to the Chrome listing. -->
       <div class="browsers">
-        <span class="browser"><b>Chrome</b><span class="soon"><span lang="en">Coming soon</span><span lang="de">Bald verfügbar</span><span lang="ar">قريبًا</span></span></span>
-        <span class="browser"><b>Edge</b><span class="soon"><span lang="en">Coming soon</span><span lang="de">Bald verfügbar</span><span lang="ar">قريبًا</span></span></span>
-        <span class="browser"><b>Firefox</b><span class="soon"><span lang="en">Coming soon</span><span lang="de">Bald verfügbar</span><span lang="ar">قريبًا</span></span></span>
+        <span class="browser reveal"><b>Chrome</b><span class="soon"><span lang="en">Coming soon</span><span lang="de">Bald verfügbar</span><span lang="ar">قريبًا</span></span></span>
+        <span class="browser reveal" style="--d:.05s"><b>Edge</b><span class="soon"><span lang="en">Coming soon</span><span lang="de">Bald verfügbar</span><span lang="ar">قريبًا</span></span></span>
+        <span class="browser reveal" style="--d:.1s"><b>Firefox</b><span class="soon"><span lang="en">Coming soon</span><span lang="de">Bald verfügbar</span><span lang="ar">قريبًا</span></span></span>
+        <span class="browser reveal"><b>Brave</b><span class="soon"><span lang="en">via Chrome Web Store</span><span lang="de">über den Chrome Web Store</span><span lang="ar">عبر متجر Chrome</span></span></span>
+        <span class="browser reveal" style="--d:.05s"><b>Opera</b><span class="soon"><span lang="en">via Chrome Web Store</span><span lang="de">über den Chrome Web Store</span><span lang="ar">عبر متجر Chrome</span></span></span>
+        <span class="browser reveal" style="--d:.1s"><b>Vivaldi</b><span class="soon"><span lang="en">via Chrome Web Store</span><span lang="de">über den Chrome Web Store</span><span lang="ar">عبر متجر Chrome</span></span></span>
       </div>
     </section>
 
     <section>
-      <div class="note">
+      <div class="note reveal">
         <span lang="en"><b>Windows may warn you.</b> The installer is not code-signed yet, so SmartScreen can say "Windows protected your PC" and "unknown publisher". Click <b>More info</b>, then <b>Run anyway</b>. Download only from this page or the release page it links to.</span>
         <span lang="de"><b>Windows kann warnen.</b> Das Installationsprogramm ist noch nicht signiert, daher kann SmartScreen „Der Computer wurde durch Windows geschützt“ und „Unbekannter Herausgeber“ melden. Klicken Sie auf <b>Weitere Informationen</b>, dann auf <b>Trotzdem ausführen</b>. Laden Sie nur von dieser Seite oder der verlinkten Release-Seite herunter.</span>
         <span lang="ar"><b>قد يحذّرك ويندوز.</b> برنامج التثبيت غير موقَّع رقميًا بعد، لذلك قد يعرض SmartScreen عبارة «حماية ويندوز لجهازك» و«ناشر غير معروف». انقر <b>مزيد من المعلومات</b> ثم <b>تشغيل على أي حال</b>. نزّل فقط من هذه الصفحة أو من صفحة الإصدارات التي تربط بها.</span>
@@ -163,8 +290,8 @@
 </div>
 
 <script>
-// The language: the address (#de), else the browser's, else English. Without script the page stays in English.
 (function () {
+  // The language: the address (#de), else the browser's, else English. Without script the page stays in English.
   var ids = ['en', 'de', 'ar'];
   function show() {
     var want = (location.hash || '').slice(1);
@@ -178,6 +305,43 @@
   }
   window.addEventListener('hashchange', show);
   show();
+
+  // Fade-in: a block comes in once, when it first scrolls into view. Without IntersectionObserver everything simply shows.
+  var blocks = [].slice.call(document.querySelectorAll('.reveal'));
+  blocks.forEach(function (el, i) { if (!el.style.getPropertyValue('--d') && el.classList.contains('card')) el.style.setProperty('--d', ((i % 3) * 0.07) + 's'); });
+  if ('IntersectionObserver' in window) {
+    var seen = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); seen.unobserve(e.target); } });
+    });  // (no negative margin: a block near the end of a short page must still come in)
+    blocks.forEach(function (el) { seen.observe(el); });
+  } else {
+    blocks.forEach(function (el) { el.classList.add('in'); });
+  }
+
+  // "See it in action": shown only when a YouTube address is written in data-video; the player is made on the first press (youtube-nocookie).
+  var demo = document.getElementById('demo');
+  var raw = (demo.getAttribute('data-video') || '').trim();
+  var id = null;
+  if (/^[\w-]{11}$/.test(raw)) id = raw;
+  else {
+    try {
+      var u = new URL(raw);
+      if (u.hostname === 'youtu.be') id = u.pathname.slice(1);
+      else if (/(^|\.)youtube\.com$/.test(u.hostname)) id = u.searchParams.get('v');
+    } catch (e) { /* not an address */ }
+  }
+  if (id && /^[\w-]{11}$/.test(id)) {
+    demo.hidden = false;
+    demo.querySelector('.play').addEventListener('click', function () {
+      var frame = document.createElement('iframe');
+      frame.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0';
+      frame.title = 'ZDM';
+      frame.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+      frame.referrerPolicy = 'strict-origin-when-cross-origin';
+      frame.allowFullscreen = true;
+      this.replaceWith(frame);
+    });
+  }
 })();
 </script>
 </body>
