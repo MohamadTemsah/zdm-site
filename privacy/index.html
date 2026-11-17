@@ -52,7 +52,7 @@
     <li><code>storage</code>: to keep the settings and choices above.</li>
     <li><code>contextMenus</code>: the right-click item "Download with ZDM".</li>
     <li><code>activeTab</code>, <code>scripting</code>: to read the page you are on when you ask, for the video button and the list of media.</li>
-    <li>Optional, asked only when you switch the feature on: access to all websites (to show the video button and find the video a page plays), <code>webRequest</code> (to notice the addresses of video streams a page loads; nothing is changed or blocked), and <code>cookies</code> (see above).</li>
+    <li>Optional, asked only when you switch the feature on: access to all websites (to show the video button and find the video a page plays), <code>webRequest</code> (to notice the addresses of video streams a page loads; nothing is changed or blocked), and <code>cookies</code> (see above). In Firefox only, also <code>webRequestBlocking</code>: Firefox has no event for "a download is about to start", so the extension looks at the answer headers of a page load and, only for a plain download of a file, holds the request for the moment ZDM checks the link and cancels it only if ZDM took it over; it never changes a page or its content.</li>
   </ul>
 
   <h2>Limited use</h2>
@@ -97,7 +97,7 @@
     <li><code>storage</code>: für die oben genannten Einstellungen und Entscheidungen.</li>
     <li><code>contextMenus</code>: der Rechtsklick-Eintrag „Mit ZDM herunterladen“.</li>
     <li><code>activeTab</code>, <code>scripting</code>: um die Seite zu lesen, auf der Sie sind, wenn Sie es verlangen (Video-Schaltfläche, Medienliste).</li>
-    <li>Optional, nur beim Einschalten der Funktion abgefragt: Zugriff auf alle Websites (um die Video-Schaltfläche zu zeigen und das Video einer Seite zu finden), <code>webRequest</code> (um die Adressen geladener Video-Streams zu bemerken; nichts wird verändert oder blockiert) und <code>cookies</code> (siehe oben).</li>
+    <li>Optional, nur beim Einschalten der Funktion abgefragt: Zugriff auf alle Websites (um die Video-Schaltfläche zu zeigen und das Video einer Seite zu finden), <code>webRequest</code> (um die Adressen geladener Video-Streams zu bemerken; nichts wird verändert oder blockiert) und <code>cookies</code> (siehe oben). Nur in Firefox zusätzlich <code>webRequestBlocking</code>: Firefox hat kein Ereignis für „ein Download beginnt gleich“, deshalb schaut die Erweiterung auf die Antwort-Kopfzeilen beim Laden einer Seite und hält nur bei einem einfachen Datei-Download die Anfrage kurz an, während ZDM den Link prüft, und bricht sie nur ab, wenn ZDM ihn übernommen hat; Seiten oder Inhalte ändert sie nie.</li>
   </ul>
 
   <h2>Eingeschränkte Verwendung (Limited Use)</h2>
@@ -142,7 +142,7 @@
     <li><code>storage</code>: لحفظ الإعدادات والاختيارات المذكورة أعلاه.</li>
     <li><code>contextMenus</code>: عنصر قائمة النقر الأيمن «التنزيل باستخدام ZDM».</li>
     <li><code>activeTab</code> و<code>scripting</code>: لقراءة الصفحة التي أنت فيها عندما تطلب ذلك (زر الفيديو وقائمة الوسائط).</li>
-    <li>اختيارية، تُطلب فقط عند تفعيل الميزة: الوصول إلى جميع المواقع (لإظهار زر الفيديو وإيجاد الفيديو الذي تشغّله الصفحة)، و<code>webRequest</code> (لملاحظة عناوين بثوث الفيديو التي تحمّلها الصفحة؛ لا يُغيَّر شيء ولا يُحجب)، و<code>cookies</code> (انظر أعلاه).</li>
+    <li>اختيارية، تُطلب فقط عند تفعيل الميزة: الوصول إلى جميع المواقع (لإظهار زر الفيديو وإيجاد الفيديو الذي تشغّله الصفحة)، و<code>webRequest</code> (لملاحظة عناوين بثوث الفيديو التي تحمّلها الصفحة؛ لا يُغيَّر شيء ولا يُحجب)، و<code>cookies</code> (انظر أعلاه). وفي Firefox فقط أيضًا <code>webRequestBlocking</code>: لا يملك Firefox حدثًا لـ«تنزيل على وشك البدء»، لذا تنظر الإضافة في ترويسات الاستجابة عند تحميل صفحة، ولا توقف الطلب لحظة إلا في حالة تنزيل ملف عادي، بينما يفحص ZDM الرابط، ولا تلغيه إلا إذا تسلّمه ZDM؛ ولا تغيّر صفحة أو محتوى أبدًا.</li>
   </ul>
 
   <h2>الاستخدام المحدود (Limited Use)</h2>
