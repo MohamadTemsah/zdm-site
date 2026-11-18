@@ -4,17 +4,24 @@ Put your full-resolution captures in img/raw/ named app, video, audio, playlist 
 
     python tools/make_images.py            (needs Pillow: pip install pillow)
 
-For each capture it writes img/<name>.jpg at the capture's own size (only ever scaled DOWN, to 2560 px wide at most; nothing is upscaled), and, when
-that is wider than 1280 px, img/<name>-1280.jpg for ordinary screens. Then it updates every <img data-shot="<name>"> in index.html: the
-file, the real width and height (so the page does not jump while it loads) and a srcset, so each screen takes the smaller or the larger file.
-A name with no capture in img/raw/ is left as it is. img/raw/ is not committed (.gitignore); the generated files are.
+Screenshots of an interface are written LOSSLESS (WebP): no JPEG blur around small text. For each capture it writes
+  img/<name>.webp      the capture (or its cropped part) at its own size, never scaled up, 3840 px wide at most: for sharp (2x) screens
+  img/<name>-1x.webp   the same scaled down to 1280 px, only when the capture is wider than that: for ordinary screens
+and updates every <img data-shot="<name>"> in index.html: the file, its real width and height (so the page does not jump while it loads), and a
+srcset with both files, so each screen takes the one it needs. A name with no capture in img/raw/ is left as it is. img/raw/ is not committed
+(.gitignore); the generated files are.
 
-Which screenshot is where: app = the app window (the hero, and the pause/resume block, which shows its top left through CSS: class "crop"), video = the button on a video,
-audio = an audio page, playlist = the playlist window, welcome = the extension's welcome page. CROPS (below) says which part of a capture is kept.
+Which screenshot is where: app = the app window (the hero, and the pause/resume block, which shows its top left through CSS: class "crop"),
+video = the button on a video, audio = an audio page, playlist = the playlist window, welcome = the extension's welcome page.
+
+CROPS says which part of a capture is kept, as FRACTIONS (left, top, right, bottom): so the same box fits a capture of any size (a recapture at
+150% Windows scaling has more pixels, the fractions follow). Cut from the capture's own pixels. If a recapture lays things out differently, put
+the new fractions in img/raw/crops.json, for example {"video": [0.2, 0.1, 0.7, 0.8]}; they replace the ones below. The tool prints every box in pixels.
 """
 from __future__ import annotations
 
 import argparse
+import json
 import re
 import sys
 from pathlib import Path
@@ -22,10 +29,8 @@ from pathlib import Path
 from PIL import Image
 
 NAMES = ("app", "video", "audio", "playlist", "welcome")
-MAX_WIDTH = 2560
+MAX_WIDTH = 3840
 SMALL = 1280
-# Where the picture is the whole screen but the point is a part of it: the part to keep, as fractions (left, top, right, bottom) of the capture.
-# Cut from the capture's own pixels (never scaled up), so the part stays sharp. Change a number here, run the tool again.
 CROPS = {
     "video": (0.18, 0.16, 0.70, 0.76),     # the ZDM button and its quality menu, with a bit of the player around them
     "playlist": (0.31, 0.17, 0.69, 0.75),  # the playlist window
@@ -43,10 +48,10 @@ def find_raw(raw: Path, name: str) -> Path | None:
 
 
 def save(image: Image.Image, target: Path, width: int) -> tuple[int, int]:
-    """Write `image` scaled to `width` (never larger than it is) and return the size written."""
+    """Write `image` lossless, scaled to `width` (never larger than it is); returns the size written."""
     if image.width > width:
         image = image.resize((width, round(image.height * width / image.width)), Image.LANCZOS)
-    image.save(target, quality=88, optimize=True, progressive=True)
+    image.save(target, format="WEBP", lossless=True, quality=100, method=6)  # (lossless: "quality" is only how hard it tries to be small)
     return image.size
 
 
@@ -58,9 +63,9 @@ def retag(html: str, name: str, big: tuple[int, int], small: tuple[int, int] | N
         hero = " data-hero" in tag
         for attribute in ("src", "srcset", "sizes", "width", "height"):
             tag = re.sub(rf'\s{attribute}="[^"]*"', "", tag)
-        extra = f' src="img/{name}.jpg" width="{big[0]}" height="{big[1]}"'
+        extra = f' src="img/{name}.webp" width="{big[0]}" height="{big[1]}"'
         if small is not None:
-            extra += f' srcset="img/{name}-{SMALL}.jpg {small[0]}w, img/{name}.jpg {big[0]}w" sizes="{SIZES_HERO if hero else SIZES_BLOCK}"'
+            extra += f' srcset="img/{name}-1x.webp {small[0]}w, img/{name}.webp {big[0]}w" sizes="{SIZES_HERO if hero else SIZES_BLOCK}"'
         return tag.replace(f'data-shot="{name}"', f'data-shot="{name}"{extra}', 1)
 
     return pattern.subn(one, html)
@@ -73,6 +78,10 @@ def main() -> int:
     site = args.site
     page = site / "index.html"
     html = page.read_text(encoding="utf-8")
+    crops = dict(CROPS)
+    overrides = site / "img" / "raw" / "crops.json"
+    if overrides.is_file():
+        crops.update({k: tuple(v) for k, v in json.loads(overrides.read_text(encoding="utf-8")).items()})
     done = 0
     for name in NAMES:
         source = find_raw(site / "img" / "raw", name)
@@ -80,15 +89,21 @@ def main() -> int:
             print(f"{name}: no capture in img/raw/, left as it is")
             continue
         image = Image.open(source).convert("RGB")
-        if name in CROPS:
-            left, top, right, bottom = CROPS[name]
-            image = image.crop((round(left * image.width), round(top * image.height), round(right * image.width), round(bottom * image.height)))
-        big = save(image, site / "img" / f"{name}.jpg", MAX_WIDTH)
-        small = save(image, site / "img" / f"{name}-{SMALL}.jpg", SMALL) if image.width > SMALL else None
+        note = ""
+        if name in crops:
+            left, top, right, bottom = crops[name]
+            box = (round(left * image.width), round(top * image.height), round(right * image.width), round(bottom * image.height))
+            note = f" (crop {box[0]},{box[1]} to {box[2]},{box[3]} of {image.width}x{image.height})"
+            image = image.crop(box)
+        big = save(image, site / "img" / f"{name}.webp", MAX_WIDTH)
+        small = save(image, site / "img" / f"{name}-1x.webp", SMALL) if image.width > SMALL else None
         if small is None:
-            (site / "img" / f"{name}-{SMALL}.jpg").unlink(missing_ok=True)
+            (site / "img" / f"{name}-1x.webp").unlink(missing_ok=True)
+        for old in (f"{name}.jpg", f"{name}-1280.jpg"):  # (the JPEGs of before)
+            (site / "img" / old).unlink(missing_ok=True)
         html, count = retag(html, name, big, small)
-        print(f"{name}: {image.width}x{image.height} -> {big[0]}x{big[1]}" + (f" + {small[0]}x{small[1]}" if small else "") + f", {count} <img> updated")
+        size = (site / "img" / f"{name}.webp").stat().st_size // 1024
+        print(f"{name}: {big[0]}x{big[1]}{note}" + (f" + {small[0]}x{small[1]}" if small else "") + f", {size} KB, {count} <img> updated")
         done += 1
     page.write_text(html, encoding="utf-8")
     print(f"{done} of {len(NAMES)} screenshots swapped")
