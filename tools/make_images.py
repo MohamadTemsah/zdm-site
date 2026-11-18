@@ -14,9 +14,10 @@ srcset with both files, so each screen takes the one it needs. A name with no ca
 Which screenshot is where: app = the app window (the hero, and the pause/resume block, which shows its top left through CSS: class "crop"),
 video = the button on a video, audio = an audio page, playlist = the playlist window, welcome = the extension's welcome page.
 
-CROPS says which part of a capture is kept, as FRACTIONS (left, top, right, bottom): so the same box fits a capture of any size (a recapture at
-150% Windows scaling has more pixels, the fractions follow). Cut from the capture's own pixels. If a recapture lays things out differently, put
-the new fractions in img/raw/crops.json, for example {"video": [0.2, 0.1, 0.7, 0.8]}; they replace the ones below. The tool prints every box in pixels.
+img/crops.json says which part of a capture is kept, as FRACTIONS (left, top, right, bottom) of the capture, for example {"video": [0.01, 0.25, 0.63, 0.88]};
+a name that is not in it is used whole. Cut from the capture's own pixels (never scaled up). The boxes fit THE LAYOUT of a capture: a recapture that is laid
+out differently needs new fractions (the tool prints every box in pixels, to check against the picture). A file img/raw/crops.json, if there is one, replaces
+entries of the committed one (for trying things without committing them).
 """
 from __future__ import annotations
 
@@ -31,11 +32,7 @@ from PIL import Image
 NAMES = ("app", "video", "audio", "playlist", "welcome")
 MAX_WIDTH = 3840
 SMALL = 1280
-CROPS = {
-    "video": (0.18, 0.16, 0.70, 0.76),     # the ZDM button and its quality menu, with a bit of the player around them
-    "playlist": (0.31, 0.17, 0.69, 0.75),  # the playlist window
-    "welcome": (0.30, 0.07, 0.70, 0.45),   # the welcome page's own content (without the browser's address bar)
-}
+# (the crops live in img/crops.json, which is committed: see the top of this file)
 SIZES_HERO = "(min-width: 1128px) 1080px, 100vw"
 SIZES_BLOCK = "(min-width: 900px) 640px, 100vw"
 
@@ -78,10 +75,10 @@ def main() -> int:
     site = args.site
     page = site / "index.html"
     html = page.read_text(encoding="utf-8")
-    crops = dict(CROPS)
-    overrides = site / "img" / "raw" / "crops.json"
-    if overrides.is_file():
-        crops.update({k: tuple(v) for k, v in json.loads(overrides.read_text(encoding="utf-8")).items()})
+    crops: dict[str, tuple] = {}
+    for where in (site / "img" / "crops.json", site / "img" / "raw" / "crops.json"):  # (the committed file, then a private one in raw/ that replaces it)
+        if where.is_file():
+            crops.update({k: tuple(v) for k, v in json.loads(where.read_text(encoding="utf-8")).items()})
     done = 0
     for name in NAMES:
         source = find_raw(site / "img" / "raw", name)
