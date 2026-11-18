@@ -113,8 +113,6 @@
   .frame { margin: 0; border-radius: 16px; overflow: hidden; background: var(--ink); box-shadow: var(--key); }
   .frame img { display: block; width: 100%; height: auto; }
   .frame.crop img { aspect-ratio: 4 / 3; object-fit: cover; object-position: 0 0; }
-  .frame.zoom { aspect-ratio: 4 / 3; }
-  .frame.zoom img { height: 100%; object-fit: cover; transform: scale(1.6); transform-origin: 50% 36%; }
 
   /* ---- the rest: a quiet list, not a wall of cards */
   .rest { display: grid; grid-template-columns: 1fr; margin-top: 40px; border-top: 1px solid var(--line); }
@@ -215,7 +213,7 @@
   </div>
 
   <div class="stage wrap">
-    <div class="window reveal"><img data-shot="app" data-hero src="img/app.jpg" width="1280" height="800" alt=""></div>
+    <div class="window reveal"><img data-shot="app" src="img/app.jpg" width="1177" height="703" data-hero alt=""></div>
   </div>
 
   <section class="wrap">
@@ -227,7 +225,7 @@
         <h3><span lang="en">A button on every video</span><span lang="de">Eine Schaltfläche an jedem Video</span><span lang="ar">زر على كل فيديو</span></h3>
         <p><span lang="en">A small button sits on the player. Pick the quality, MP4 or MKV, or sound only. The size is shown before you download.</span><span lang="de">Eine kleine Schaltfläche sitzt am Player. Qualität wählen, MP4 oder MKV, oder nur den Ton. Die Größe sehen Sie vor dem Download.</span><span lang="ar">يظهر زر صغير على المشغّل. اختر الجودة، MP4 أو MKV، أو الصوت فقط. ويظهر الحجم قبل التنزيل.</span></p>
       </div>
-      <figure class="frame reveal"><img data-shot="video" src="img/video.jpg" width="1280" height="800" loading="lazy" alt=""></figure>
+      <figure class="frame reveal"><img data-shot="video" src="img/video.jpg" width="998" height="620" loading="lazy" alt=""></figure>
     </article>
 
     <article class="feature">
@@ -240,10 +238,18 @@
 
     <article class="feature">
       <div class="copy reveal">
+        <h3><span lang="en">Whole playlists, in order</span><span lang="de">Ganze Playlists, der Reihe nach</span><span lang="ar">قوائم تشغيل كاملة بالترتيب</span></h3>
+        <p><span lang="en">Open a YouTube playlist, choose one quality for all, tick the videos you want. They go into their own folder and their own queue, one after another.</span><span lang="de">Eine YouTube-Playlist öffnen, eine Qualität für alle wählen, die gewünschten Videos ankreuzen. Sie landen in einem eigenen Ordner und einer eigenen Warteschlange, eins nach dem anderen.</span><span lang="ar">افتح قائمة تشغيل يوتيوب، واختر جودة واحدة للجميع، وحدّد الفيديوهات التي تريدها. تُحفظ في مجلد خاص وقائمة انتظار خاصة، واحدًا بعد الآخر.</span></p>
+      </div>
+      <figure class="frame reveal"><img data-shot="playlist" src="img/playlist.jpg" width="728" height="601" loading="lazy" alt=""></figure>
+    </article>
+
+    <article class="feature">
+      <div class="copy reveal">
         <h3><span lang="en">Pause, resume, schedule</span><span lang="de">Pausieren, fortsetzen, planen</span><span lang="ar">إيقاف مؤقت واستئناف وجدولة</span></h3>
         <p><span lang="en">Stop any time and carry on later, even after a power cut. Sort downloads into queues, start them at a set time on the days you choose, and let ZDM shut the PC down when they finish.</span><span lang="de">Jederzeit anhalten und später weitermachen, sogar nach einem Stromausfall. Downloads in Warteschlangen sortieren, zu einer festen Zeit an gewählten Tagen starten und ZDM den PC herunterfahren lassen, wenn sie fertig sind.</span><span lang="ar">أوقف في أي وقت وأكمل لاحقًا، حتى بعد انقطاع الكهرباء. رتّب التنزيلات في قوائم انتظار، وابدأها في وقت محدد وفي الأيام التي تختارها، ودع ZDM يُطفئ الحاسوب عند الانتهاء.</span></p>
       </div>
-      <figure class="frame crop reveal"><img data-shot="app" src="img/app.jpg" width="1280" height="800" loading="lazy" alt=""></figure>
+      <figure class="frame crop reveal"><img data-shot="app" src="img/app.jpg" width="1177" height="703" loading="lazy" alt=""></figure>
     </article>
 
     <article class="feature">
@@ -251,14 +257,14 @@
         <h3><span lang="en">Your browser hands downloads to ZDM</span><span lang="de">Ihr Browser übergibt Downloads an ZDM</span><span lang="ar">متصفحك يسلّم التنزيلات إلى ZDM</span></h3>
         <p><span lang="en">Chrome, Edge and Firefox pass their downloads on. The extension talks only to the app on your own computer, and sites with DRM protection are refused at once.</span><span lang="de">Chrome, Edge und Firefox geben ihre Downloads weiter. Die Erweiterung spricht nur mit der App auf Ihrem eigenen Computer, und Seiten mit DRM-Schutz werden sofort abgelehnt.</span><span lang="ar">تمرّر Chrome وEdge وFirefox تنزيلاتها. تتحدث الإضافة فقط مع التطبيق على حاسوبك أنت، وتُرفض المواقع المحمية بتقنية DRM فورًا.</span></p>
       </div>
-      <figure class="frame zoom reveal"><img data-shot="welcome" src="img/welcome.jpg" width="1280" height="800" loading="lazy" alt=""></figure>
+      <figure class="frame reveal"><img data-shot="welcome" src="img/welcome.jpg" width="768" height="397" loading="lazy" alt=""></figure>
     </article>
 
     <div class="rest reveal">
       <div><b><span lang="en">Faster downloads</span><span lang="de">Schnellere Downloads</span><span lang="ar">تنزيلات أسرع</span></b>
         <span class="d"><span lang="en">Every file in several parts at once, so a slow line is used to the full.</span><span lang="de">Jede Datei in mehreren Teilen gleichzeitig, damit auch eine langsame Leitung voll genutzt wird.</span><span lang="ar">كل ملف على عدة أجزاء في وقت واحد، فيُستفاد من الخط البطيء إلى أقصى حد.</span></span></div>
-      <div><b><span lang="en">Playlists</span><span lang="de">Playlists</span><span lang="ar">قوائم التشغيل</span></b>
-        <span class="d"><span lang="en">Tick the videos you want from a YouTube playlist; they go into their own folder, in order.</span><span lang="de">Die gewünschten Videos einer YouTube-Playlist ankreuzen; sie landen in einem eigenen Ordner, der Reihe nach.</span><span lang="ar">حدّد الفيديوهات التي تريدها من قائمة تشغيل يوتيوب؛ تُحفظ في مجلد خاص بها بالترتيب.</span></span></div>
+      <div><b><span lang="en">Sorted by type</span><span lang="de">Nach Typ sortiert</span><span lang="ar">مرتّبة حسب النوع</span></b>
+        <span class="d"><span lang="en">Finished files go to Video, Music, Compressed, Programs or Documents, by their type.</span><span lang="de">Fertige Dateien kommen je nach Typ in Video, Musik, Komprimiert, Programme oder Dokumente.</span><span lang="ar">تذهب الملفات المكتملة إلى فيديو أو موسيقى أو مضغوطة أو برامج أو مستندات حسب نوعها.</span></span></div>
       <div><b><span lang="en">Speed limit</span><span lang="de">Geschwindigkeitsbegrenzung</span><span lang="ar">تحديد السرعة</span></b>
         <span class="d"><span lang="en">Cap the whole app or each download, so your line stays free for everything else.</span><span lang="de">Die ganze App oder jeden Download begrenzen, damit Ihre Leitung für alles andere frei bleibt.</span><span lang="ar">حدّد سرعة التطبيق كله أو كل تنزيل، ليبقى خطك متاحًا لبقية استخداماتك.</span></span></div>
       <div><b><span lang="en">Links from the clipboard</span><span lang="de">Links aus der Zwischenablage</span><span lang="ar">روابط من الحافظة</span></b>

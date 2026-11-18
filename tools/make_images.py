@@ -1,6 +1,6 @@
 r"""Swaps the page's screenshots in one step.
 
-Put your full-resolution captures in img/raw/ named app, video, audio and welcome (.png, .jpg or .webp), then run
+Put your full-resolution captures in img/raw/ named app, video, audio, playlist and welcome (.png, .jpg or .webp), then run
 
     python tools/make_images.py            (needs Pillow: pip install pillow)
 
@@ -9,8 +9,8 @@ that is wider than 1280 px, img/<name>-1280.jpg for ordinary screens. Then it up
 file, the real width and height (so the page does not jump while it loads) and a srcset, so each screen takes the smaller or the larger file.
 A name with no capture in img/raw/ is left as it is. img/raw/ is not committed (.gitignore); the generated files are.
 
-Which screenshot is where: app = the app window (the hero, and the pause/resume block, a crop of its top left), video = the button on a video,
-audio = an audio page, welcome = the extension's welcome page (zoomed in by CSS, the class "zoom" in index.html).
+Which screenshot is where: app = the app window (the hero, and the pause/resume block, which shows its top left through CSS: class "crop"), video = the button on a video,
+audio = an audio page, playlist = the playlist window, welcome = the extension's welcome page. CROPS (below) says which part of a capture is kept.
 """
 from __future__ import annotations
 
@@ -21,9 +21,16 @@ from pathlib import Path
 
 from PIL import Image
 
-NAMES = ("app", "video", "audio", "welcome")
+NAMES = ("app", "video", "audio", "playlist", "welcome")
 MAX_WIDTH = 2560
 SMALL = 1280
+# Where the picture is the whole screen but the point is a part of it: the part to keep, as fractions (left, top, right, bottom) of the capture.
+# Cut from the capture's own pixels (never scaled up), so the part stays sharp. Change a number here, run the tool again.
+CROPS = {
+    "video": (0.18, 0.16, 0.70, 0.76),     # the ZDM button and its quality menu, with a bit of the player around them
+    "playlist": (0.31, 0.17, 0.69, 0.75),  # the playlist window
+    "welcome": (0.30, 0.07, 0.70, 0.45),   # the welcome page's own content (without the browser's address bar)
+}
 SIZES_HERO = "(min-width: 1128px) 1080px, 100vw"
 SIZES_BLOCK = "(min-width: 900px) 640px, 100vw"
 
@@ -73,6 +80,9 @@ def main() -> int:
             print(f"{name}: no capture in img/raw/, left as it is")
             continue
         image = Image.open(source).convert("RGB")
+        if name in CROPS:
+            left, top, right, bottom = CROPS[name]
+            image = image.crop((round(left * image.width), round(top * image.height), round(right * image.width), round(bottom * image.height)))
         big = save(image, site / "img" / f"{name}.jpg", MAX_WIDTH)
         small = save(image, site / "img" / f"{name}-{SMALL}.jpg", SMALL) if image.width > SMALL else None
         if small is None:
