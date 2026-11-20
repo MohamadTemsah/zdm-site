@@ -22,7 +22,7 @@
 
 <section id="en" lang="en" dir="ltr">
   <h1>Zap Download Manager: privacy policy</h1>
-  <p class="date">Browser extension "Zap Download Manager" (ZDM). Last updated: 2026-11-17.</p>
+  <p class="date">Browser extension "Zap Download Manager" (ZDM). Last updated: 2026-11-20.</p>
 
   <h2>In short</h2>
   <p>The extension sends information only to the ZDM program installed on your own computer. It sends nothing to any server of ours or of anyone else. We run no server that receives data from the extension, we have no accounts, no analytics, no advertising and no tracking, and we sell or share nothing.</p>
@@ -52,14 +52,15 @@
     <li><code>storage</code>: to keep the settings and choices above.</li>
     <li><code>contextMenus</code>: the right-click item "Download with ZDM".</li>
     <li><code>activeTab</code>, <code>scripting</code>: to read the page you are on when you ask, for the video button and the list of media.</li>
-    <li>Optional, asked only when you switch the feature on: access to all websites (to show the video button and find the video a page plays), <code>webRequest</code> (to notice the addresses of video streams a page loads; nothing is changed or blocked), and <code>cookies</code> (see above). In Firefox only, also <code>webRequestBlocking</code>: Firefox has no event for "a download is about to start", so the extension looks at the answer headers of a page load and, only for a plain download of a file, holds the request for the moment ZDM checks the link and cancels it only if ZDM took it over; it never changes a page or its content.</li>
+    <li>Asked at install: access to all websites (to show the video button on any page that plays video, and to find the video a page plays), and <code>webRequest</code> (to notice the addresses of video streams a page loads; nothing is changed or blocked). Having this access sends nothing anywhere: a page is looked at only to place the button, and only your click or a download that starts sends an address to the ZDM app on your computer. In Firefox also <code>webRequestBlocking</code>: Firefox has no event for "a download is about to start", so the extension looks at the answer headers of a page load and, only for a plain download of a file, holds the request for the moment ZDM checks the link and cancels it only if ZDM took it over; it never changes a page or its content.</li>
+    <li>Optional, asked only when you switch the feature on: <code>cookies</code> (see above).</li>
   </ul>
 
   <h2>Limited use</h2>
   <p>The use of information received from the browser's APIs adheres to the Chrome Web Store User Data Policy, including its Limited Use requirements. Data is used only to provide the extension's single purpose (handing downloads and media to the ZDM app on your computer), is not transferred to any third party, and is not used for advertising, credit or lending decisions.</p>
 
   <h2>Your control</h2>
-  <p>Turn features off in the extension's options and the toolbar popup, remove the optional permissions in the browser's extension settings, or uninstall the extension. Cookies and detected stream addresses are not kept by the extension after you do.</p>
+  <p>Turn the video button off (for all websites or for one) in the toolbar popup, change the file types in the extension's options, take the access to websites away in the browser's extension settings, or uninstall the extension. Cookies and detected stream addresses are not kept by the extension after you do.</p>
 
   <h2>Changes and contact</h2>
   <p>If this policy changes, the new version is published at this address with a new date. Contact: <b>zdm.support2@gmail.com</b>.</p>
@@ -67,7 +68,7 @@
 
 <section id="de" lang="de" dir="ltr">
   <h1>Zap Download Manager: Datenschutzerklärung</h1>
-  <p class="date">Browser-Erweiterung „Zap Download Manager“ (ZDM). Stand: 17.11.2026.</p>
+  <p class="date">Browser-Erweiterung „Zap Download Manager“ (ZDM). Stand: 20.11.2026.</p>
 
   <h2>Kurz gesagt</h2>
   <p>Die Erweiterung sendet Informationen nur an das ZDM-Programm auf Ihrem eigenen Computer. Sie sendet nichts an einen Server von uns oder von Dritten. Wir betreiben keinen Server, der Daten der Erweiterung empfängt, es gibt keine Konten, keine Analyse, keine Werbung und kein Tracking, und wir verkaufen oder teilen nichts.</p>
@@ -97,14 +98,15 @@
     <li><code>storage</code>: für die oben genannten Einstellungen und Entscheidungen.</li>
     <li><code>contextMenus</code>: der Rechtsklick-Eintrag „Mit ZDM herunterladen“.</li>
     <li><code>activeTab</code>, <code>scripting</code>: um die Seite zu lesen, auf der Sie sind, wenn Sie es verlangen (Video-Schaltfläche, Medienliste).</li>
-    <li>Optional, nur beim Einschalten der Funktion abgefragt: Zugriff auf alle Websites (um die Video-Schaltfläche zu zeigen und das Video einer Seite zu finden), <code>webRequest</code> (um die Adressen geladener Video-Streams zu bemerken; nichts wird verändert oder blockiert) und <code>cookies</code> (siehe oben). Nur in Firefox zusätzlich <code>webRequestBlocking</code>: Firefox hat kein Ereignis für „ein Download beginnt gleich“, deshalb schaut die Erweiterung auf die Antwort-Kopfzeilen beim Laden einer Seite und hält nur bei einem einfachen Datei-Download die Anfrage kurz an, während ZDM den Link prüft, und bricht sie nur ab, wenn ZDM ihn übernommen hat; Seiten oder Inhalte ändert sie nie.</li>
+    <li>Bei der Installation abgefragt: Zugriff auf alle Websites (um die Video-Schaltfläche auf jeder Seite mit Video zu zeigen und das Video einer Seite zu finden) und <code>webRequest</code> (um die Adressen geladener Video-Streams zu bemerken; nichts wird verändert oder blockiert). Dieser Zugriff sendet nichts irgendwohin: Eine Seite wird nur angesehen, um die Schaltfläche zu platzieren, und nur Ihr Klick oder ein beginnender Download sendet eine Adresse an die ZDM-App auf Ihrem Computer. In Firefox zusätzlich <code>webRequestBlocking</code>: Firefox hat kein Ereignis für „ein Download beginnt gleich“, deshalb schaut die Erweiterung auf die Antwort-Kopfzeilen beim Laden einer Seite und hält nur bei einem einfachen Datei-Download die Anfrage kurz an, während ZDM den Link prüft, und bricht sie nur ab, wenn ZDM ihn übernommen hat; Seiten oder Inhalte ändert sie nie.</li>
+    <li>Optional, nur beim Einschalten der Funktion abgefragt: <code>cookies</code> (siehe oben).</li>
   </ul>
 
   <h2>Eingeschränkte Verwendung (Limited Use)</h2>
   <p>Die Verwendung von Informationen aus den APIs des Browsers entspricht der Nutzerdatenrichtlinie des Chrome Web Store einschließlich der Anforderungen zur eingeschränkten Verwendung. Daten werden nur für den einen Zweck der Erweiterung genutzt (Downloads und Medien an die ZDM-App auf Ihrem Computer übergeben), nicht an Dritte weitergegeben und nicht für Werbung oder Kreditentscheidungen verwendet.</p>
 
   <h2>Ihre Kontrolle</h2>
-  <p>Schalten Sie Funktionen in den Optionen der Erweiterung und im Popup der Symbolleiste aus, entziehen Sie die optionalen Berechtigungen in den Erweiterungseinstellungen des Browsers oder deinstallieren Sie die Erweiterung. Danach behält die Erweiterung weder Cookies noch erkannte Stream-Adressen.</p>
+  <p>Schalten Sie die Video-Schaltfläche (für alle Websites oder für eine) im Popup der Symbolleiste aus, ändern Sie die Dateitypen in den Optionen der Erweiterung, entziehen Sie den Zugriff auf Websites in den Erweiterungseinstellungen des Browsers oder deinstallieren Sie die Erweiterung. Danach behält die Erweiterung weder Cookies noch erkannte Stream-Adressen.</p>
 
   <h2>Änderungen und Kontakt</h2>
   <p>Ändert sich diese Erklärung, erscheint die neue Fassung unter dieser Adresse mit neuem Datum. Kontakt: <b>zdm.support2@gmail.com</b>.</p>
@@ -112,7 +114,7 @@
 
 <section id="ar" lang="ar" dir="rtl">
   <h1>Zap Download Manager: سياسة الخصوصية</h1>
-  <p class="date">إضافة المتصفح «Zap Download Manager» (ZDM). آخر تحديث: 2026-11-17.</p>
+  <p class="date">إضافة المتصفح «Zap Download Manager» (ZDM). آخر تحديث: 2026-11-20.</p>
 
   <h2>باختصار</h2>
   <p>ترسل الإضافة المعلومات فقط إلى برنامج ZDM المثبّت على حاسوبك أنت. ولا ترسل شيئًا إلى أي خادم لنا أو لأي جهة أخرى. لا نشغّل أي خادم يستقبل بيانات من الإضافة، ولا توجد حسابات ولا تحليلات ولا إعلانات ولا تتبّع، ولا نبيع ولا نشارك أي شيء.</p>
@@ -142,14 +144,15 @@
     <li><code>storage</code>: لحفظ الإعدادات والاختيارات المذكورة أعلاه.</li>
     <li><code>contextMenus</code>: عنصر قائمة النقر الأيمن «التنزيل باستخدام ZDM».</li>
     <li><code>activeTab</code> و<code>scripting</code>: لقراءة الصفحة التي أنت فيها عندما تطلب ذلك (زر الفيديو وقائمة الوسائط).</li>
-    <li>اختيارية، تُطلب فقط عند تفعيل الميزة: الوصول إلى جميع المواقع (لإظهار زر الفيديو وإيجاد الفيديو الذي تشغّله الصفحة)، و<code>webRequest</code> (لملاحظة عناوين بثوث الفيديو التي تحمّلها الصفحة؛ لا يُغيَّر شيء ولا يُحجب)، و<code>cookies</code> (انظر أعلاه). وفي Firefox فقط أيضًا <code>webRequestBlocking</code>: لا يملك Firefox حدثًا لـ«تنزيل على وشك البدء»، لذا تنظر الإضافة في ترويسات الاستجابة عند تحميل صفحة، ولا توقف الطلب لحظة إلا في حالة تنزيل ملف عادي، بينما يفحص ZDM الرابط، ولا تلغيه إلا إذا تسلّمه ZDM؛ ولا تغيّر صفحة أو محتوى أبدًا.</li>
+    <li>تُطلب عند التثبيت: الوصول إلى جميع المواقع (لإظهار زر الفيديو في أي صفحة تشغّل فيديو وإيجاد الفيديو الذي تشغّله الصفحة)، و<code>webRequest</code> (لملاحظة عناوين بثوث الفيديو التي تحمّلها الصفحة؛ لا يُغيَّر شيء ولا يُحجب). هذا الوصول لا يرسل شيئًا إلى أي مكان: تُفحص الصفحة فقط لوضع الزر، ولا يرسل عنوانًا إلى تطبيق ZDM على حاسوبك إلا نقرتك أو تنزيل يبدأ. وفي Firefox أيضًا <code>webRequestBlocking</code>: لا يملك Firefox حدثًا لـ«تنزيل على وشك البدء»، لذا تنظر الإضافة في ترويسات الاستجابة عند تحميل صفحة، ولا توقف الطلب لحظة إلا في حالة تنزيل ملف عادي، بينما يفحص ZDM الرابط، ولا تلغيه إلا إذا تسلّمه ZDM؛ ولا تغيّر صفحة أو محتوى أبدًا.</li>
+    <li>اختيارية، تُطلب فقط عند تفعيل الميزة: <code>cookies</code> (انظر أعلاه).</li>
   </ul>
 
   <h2>الاستخدام المحدود (Limited Use)</h2>
   <p>يلتزم استخدام المعلومات الواردة من واجهات المتصفح البرمجية بسياسة بيانات المستخدم في متجر Chrome الإلكتروني، بما فيها متطلبات الاستخدام المحدود. تُستخدم البيانات فقط لغرض الإضافة الوحيد (تسليم التنزيلات والوسائط إلى تطبيق ZDM على حاسوبك)، ولا تُنقل إلى أي طرف ثالث، ولا تُستخدم للإعلانات أو لقرارات الائتمان.</p>
 
   <h2>تحكّمك</h2>
-  <p>أوقف الميزات من خيارات الإضافة ومن النافذة المنبثقة في شريط الأدوات، أو اسحب الأذونات الاختيارية من إعدادات الإضافات في المتصفح، أو احذف الإضافة. بعد ذلك لا تحتفظ الإضافة بأي كوكيز ولا بعناوين البثوث المكتشفة.</p>
+  <p>أوقف زر الفيديو (لكل المواقع أو لموقع واحد) من النافذة المنبثقة في شريط الأدوات، وغيّر أنواع الملفات من خيارات الإضافة، أو اسحب الوصول إلى المواقع من إعدادات الإضافات في المتصفح، أو احذف الإضافة. بعد ذلك لا تحتفظ الإضافة بأي ملفات تعريف ارتباط ولا بعناوين البثوث المكتشفة.</p>
 
   <h2>التغييرات والتواصل</h2>
   <p>إذا تغيّرت هذه السياسة تُنشر النسخة الجديدة على هذا العنوان بتاريخ جديد. للتواصل: <b>zdm.support2@gmail.com</b>.</p>
